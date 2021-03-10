@@ -31,15 +31,67 @@ public class FXMLController {
 
     @FXML
     private Button btnReset;
+    
+    @FXML
+    private Button btnCancella;
+    
+    @FXML
+    private TextArea txtTempoEsecuzione;
 
     @FXML
     void doInsert(ActionEvent event) {
-    	// TODO
+    	
+    	double start = System.nanoTime();
+  
+    	elenco.addParola(this.txtParola.getText());
+    	
+    	String stringaStampa = "";
+    	for (String ss: elenco.getElenco()) {
+    		stringaStampa += ss +"\n";
+    	}
+   
+    	this.txtResult.setText(stringaStampa);
+    	
+    	this.txtParola.clear();
+    	
+    	double stop = System.nanoTime();
+    	
+    	this.txtTempoEsecuzione.setText("" + (stop - start));
     }
-
+    
     @FXML
     void doReset(ActionEvent event) {
-    	// TODO
+    	double start = System.nanoTime();
+    	
+    	elenco.reset();
+    	this.txtResult.clear();	
+    	
+    	double stop = System.nanoTime();
+    	
+    	this.txtTempoEsecuzione.setText("" + (stop - start));
+    }
+    
+    @FXML
+    void doCancella(ActionEvent event) {
+    	double start = System.nanoTime();
+    	
+    	String s = this.txtResult.getSelectedText();
+    	elenco.cancella(s);
+    	
+    	this.txtResult.clear();
+
+    	String stringaStampa = "";
+    	for (String ss: elenco.getElenco()) {
+    		stringaStampa += ss +"\n";
+    	}
+   
+    	this.txtResult.setText(stringaStampa);
+    	
+    	double stop = System.nanoTime();
+    	
+    	this.txtTempoEsecuzione.setText("" + (stop - start));
+
+    	
     }
 
     @FXML
